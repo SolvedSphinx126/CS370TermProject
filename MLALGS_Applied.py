@@ -115,7 +115,7 @@ def GetBatchMetrics(model, trainingXList, trainingYList, testCases, testCasesYs,
 
         endTime = time.time()
 
-        print(f"Completed variant {index + 1}")
+        print(f"Completed variant {index + 1} of model {'ANN' if type(model) == keras.Sequential else 'LR_SGD' if type(model) == linear_model.SGDRegressor else 'SVR' if type(model) == LinearSVR else 'Error?'}")
         metrics[f"Variant{index + 1}_TestMetrics"] = caseMetrics
         metrics[f"Variant{index + 1}_TotalTime"] = endTime - startTime
     
