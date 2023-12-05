@@ -75,11 +75,11 @@ def GetAUC(predictions, actual, numPostsToConsider=10, debugPrint=0):
     hits = GetHits(predictions, actual, numPostsToConsider, debugPrint)
     return hits / (hits + (numPostsToConsider - hits))
 
-def GetMAPE(predictions, actual):
+def GetMAE(predictions, actual):
     errors = abs(actual - predictions)
-    percentage_errors = errors / actual * 100
-    MeanAPE = np.mean(percentage_errors)
-    return MeanAPE
+
+    MeanAE = np.mean(errors)
+    return MeanAE
 
 # Returns the metrics of the model trained on the specified data for each of the 10 test cases
 def GetBatchMetrics(model, trainingXList, trainingYList, testCases, testCasesYs, epochs = None, printCrap = 0, batchSize=200):
@@ -111,7 +111,7 @@ def GetBatchMetrics(model, trainingXList, trainingYList, testCases, testCasesYs,
             predictions.append(model.predict(sTestCaseX))
             caseMetrics[f"HitsAtTen_Case{j + 1}"] = GetHits(predictions[j], testCasesYs[j])
             caseMetrics[f"AUC_AtTen_Case{j + 1}"] = GetAUC(predictions[j], testCasesYs[j])
-            caseMetrics[f"MAPE_AtTen_Case{j + 1}"] = GetMAPE(predictions[j], testCasesYs[j])
+            caseMetrics[f"MAE_AtTen_Case{j + 1}"] = GetMAE(predictions[j], testCasesYs[j])
 
         endTime = time.time()
 
