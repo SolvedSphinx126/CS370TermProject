@@ -5,7 +5,7 @@ import tensorflow as tf
 import keras
 
 from sklearn import linear_model
-from sklearn.svm import SVR
+from sklearn.svm import LinearSVR
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 
@@ -24,7 +24,7 @@ trainingXMatrix = np.array(trainingXMatrix)
 trainingYMatrix = np.array(trainingYMatrix)
 
 # Bulid test set from data
-validationDataFile = open("facebook_comment_volume_dataset/Dataset/Testing/TestSet/Test_Case_2.csv")
+validationDataFile = open("facebook_comment_volume_dataset/Dataset/Testing/TestSet/Test_Case_7.csv")
 # validationDataFile = open("facebook_comment_volume_dataset/Dataset/Testing/Features_TestSet.csv")
 
 testingXMatrix = []
@@ -68,22 +68,25 @@ epochs = 80 # IMPORTANT this is the number of epochs for the ANN model
 history = ANNModel.fit(x=xTrainScaled, y=trainingYMatrix, epochs=epochs, batch_size=200, validation_data=(xTestScaled, testingYMatrix), verbose=1)
 
 # Plotting Loss
+plt.figure("ANN Convergence")
+plt.subplot(2, 1, 1)
 plt.plot([i for i in range(epochs)], history.history["loss"], color="red", label="Training Loss")
 plt.plot([i for i in range(epochs)], history.history["val_loss"], color="green", label="Validation Loss")
 plt.title("ANN: Training and validation loss")
 plt.xlabel("Epochs")
 plt.ylabel("Loss")
 plt.legend()
-plt.show()
 
 # Plotting Mean Abs Error
+plt.subplot(2, 1, 2)
 plt.plot([i for i in range(epochs)], history.history["mean_absolute_error"], color="red", label="Training MAE")
 plt.plot([i for i in range(epochs)], history.history["val_mean_absolute_error"], color="green", label="Validation MAE")
 plt.title("ANN: Training and validation MAE")
 plt.xlabel("Epochs")
 plt.ylabel("Accuracy")
 plt.legend()
-plt.show()
+
+plt.subplots_adjust(hspace=0.5)
 
 mse_neural, mae_neural = ANNModel.evaluate(xTestScaled, testingYMatrix)
 
@@ -117,6 +120,7 @@ for i in range(epochs):
     sgdTestingLoss.append(mean_squared_error(lr_sgd_model.predict(xTestScaled), testingYMatrix))
 
 # Plotting Loss (MSE)
+plt.figure("LR Convergence")
 plt.plot([i for i in range(epochs)], sgdTrainingLoss, color="red", label="Training Loss")
 plt.plot([i for i in range(epochs)], sgdTestingLoss, color="green", label="Validation Loss")
 plt.title("SGD_LR: Training and validation loss")
@@ -134,7 +138,7 @@ print("Mean absolute error for SGD Linear Regression: ", mae_sgd_lr)
 
 ############################################################################################################################
 # Support Vector Regression
-svr_model = SVR(kernel="linear", verbose=False)
+svr_model = LinearSVR(verbose=True)
 svr_model.fit(xTrainScaled, trainingYMatrix)
 y_pred_svr = svr_model.predict(xTestScaled)
 mse_svr = mean_squared_error(testingYMatrix, y_pred_svr)
