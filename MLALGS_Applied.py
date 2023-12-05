@@ -111,7 +111,7 @@ def GetBatchMetrics(model, trainingXList, trainingYList, testCases, testCasesYs,
             predictions.append(model.predict(sTestCaseX))
             caseMetrics[f"HitsAtTen_Case{j + 1}"] = GetHits(predictions[j], testCasesYs[j])
             caseMetrics[f"AUC_AtTen_Case{j + 1}"] = GetAUC(predictions[j], testCasesYs[j])
-            caseMetrics[f"MAE_AtTen_Case{j + 1}"] = GetMAE(predictions[j], testCasesYs[j])
+            caseMetrics[f"MAE_Case{j + 1}"] = GetMAE(predictions[j], testCasesYs[j])
 
         endTime = time.time()
 
@@ -142,7 +142,7 @@ ANNModel.compile(optimizer=keras.optimizers.Adam(),
 
 epochs = 80 # IMPORTANT this is the number of epochs for the ANN model
 
-metrics = GetBatchMetrics(ANNModel, trainingXList, trainingYList, testingXList, testingYList, epochs=epochs, printCrap=1, batchSize=200)
+metrics = GetBatchMetrics(ANNModel, trainingXList, trainingYList, testingXList, testingYList, epochs=epochs, printCrap=0, batchSize=200)
 print(metrics)
 
 ############################################################################################################################
@@ -154,7 +154,7 @@ print(metrics)
 
 ############################################################################################################################
 # Support Vector Regression
-svr_model = LinearSVR(verbose=True)
+svr_model = LinearSVR(verbose=False)
 
 metrics = GetBatchMetrics(svr_model, trainingXList, trainingYList, testingXList, testingYList)
 print(metrics)
