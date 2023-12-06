@@ -83,7 +83,7 @@ plt.plot([i for i in range(epochs)], history.history["mean_absolute_error"], col
 plt.plot([i for i in range(epochs)], history.history["val_mean_absolute_error"], color="green", label="Validation MAE")
 plt.title("ANN: Training and validation MAE")
 plt.xlabel("Epochs")
-plt.ylabel("Accuracy")
+plt.ylabel("Error")
 plt.legend()
 
 plt.subplots_adjust(hspace=0.5)
