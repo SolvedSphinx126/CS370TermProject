@@ -3,17 +3,17 @@
 ## Usage
 
 ### MLALGS.py
-This file is used to generate the convergence graphs for the Artificial Neural Network and the Stochastic Gradient Descent Linear Regression models.
-It has three variables at the top of the file to specify which variation of training data to use, and which test case to use.
-**VARIANT** Specifies the training variant (1-5)
-**USE_ENTIRE_TEST** When **True**, specifies that the entire training dataset should be used (10k examples), and when **False** specifies that an individual test case should be used
-**TEST_CASE** Specifies the test case to use if **USE_ENTIRE_TEST** is set to **False**, values (1-10)
+This file is used to generate the convergence graphs for the Artificial Neural Network and the Stochastic Gradient Descent Linear Regression models.\
+It has three variables at the top of the file to specify which variation of training data to use, and which test case to use.\
+**VARIANT** Specifies the training variant (1-5)\
+**USE_ENTIRE_TEST** When **True**, specifies that the entire training dataset should be used (10k examples), and when **False** specifies that an individual test case should be used\
+**TEST_CASE** Specifies the test case to use if **USE_ENTIRE_TEST** is set to **False**, values (1-10)\
 
 ### MLALGS_Applied.py
-This file is used to generate the performance metrics and graph them.
-These metrics are colleced across all 5 variations of training data, and each variation is applied to all 10 test cases.
-The average of the metrics across the test cases are used for plotting **Hits@10**, **AUC@10**, **MAE**, and **Eval Time**.
-The **PRINT_DETAILS** variable at the top of the file controls if the models will print extra information during their training and evaluation.
+This file is used to generate the performance metrics and graph them.\
+These metrics are colleced across all 5 variations of training data, and each variation is applied to all 10 test cases.\
+The average of the metrics across the test cases are used for plotting **Hits@10**, **AUC@10**, **MAE**, and **Eval Time**.\
+The **PRINT_DETAILS** variable at the top of the file controls if the models will print extra information during their training and evaluation.\
 
 ## Project Structure
 ```
