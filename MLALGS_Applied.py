@@ -12,6 +12,8 @@ from sklearn.svm import LinearSVR
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 
+PRINT_DETAILS = False
+
 #####################
 # Build training sets
 numVariants = 5
@@ -156,13 +158,13 @@ ANNModel.compile(optimizer=keras.optimizers.Adam(),
 
 epochs = 40 # IMPORTANT this is the number of epochs for the ANN model
 
-metrics = GetBatchMetrics(ANNModel, trainingXList, trainingYList, testingXList, testingYList, epochs=epochs, printCrap=0, batchSize=200)
+metrics = GetBatchMetrics(ANNModel, trainingXList, trainingYList, testingXList, testingYList, epochs=epochs, printCrap=PRINT_DETAILS, batchSize=200)
 print(metrics)
 metricsDict["ANN"] = metrics
 
 ############################################################################################################################
 # Linear Regression SGD
-lr_sgd_model = linear_model.SGDRegressor(loss="huber", penalty=None, verbose=False)
+lr_sgd_model = linear_model.SGDRegressor(loss="huber", penalty=None, verbose=PRINT_DETAILS)
 
 metrics = GetBatchMetrics(lr_sgd_model, trainingXList, trainingYList, testingXList, testingYList)
 print(metrics)
@@ -170,7 +172,7 @@ metricsDict["LR_SGD"] = metrics
 
 ############################################################################################################################
 # Support Vector Regression
-svr_model = LinearSVR(verbose=False)
+svr_model = LinearSVR(verbose=PRINT_DETAILS)
 
 metrics = GetBatchMetrics(svr_model, trainingXList, trainingYList, testingXList, testingYList)
 print(metrics)
