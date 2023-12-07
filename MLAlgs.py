@@ -9,8 +9,13 @@ from sklearn.svm import LinearSVR
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 
+# Specify variant and test case here
+VARIANT = 1               # 1-5
+USE_ENTIRE_TEST = True   # Use entire test set (10k instances)
+TEST_CASE = 2             # 1-10 If USE_ENTIRE_TEST = False
+
 # Build training set from data
-trainingDataFile = open("facebook_comment_volume_dataset/Dataset/Training/Features_Variant_1.csv")
+trainingDataFile = open(f"facebook_comment_volume_dataset/Dataset/Training/Features_Variant_{VARIANT}.csv")
 
 trainingXMatrix = []
 trainingYMatrix = []
@@ -24,8 +29,10 @@ trainingXMatrix = np.array(trainingXMatrix)
 trainingYMatrix = np.array(trainingYMatrix)
 
 # Bulid test set from data
-validationDataFile = open("facebook_comment_volume_dataset/Dataset/Testing/TestSet/Test_Case_7.csv")
-# validationDataFile = open("facebook_comment_volume_dataset/Dataset/Testing/Features_TestSet.csv")
+if USE_ENTIRE_TEST:
+    validationDataFile = open("facebook_comment_volume_dataset/Dataset/Testing/Features_TestSet.csv")
+else:
+    validationDataFile = open(f"facebook_comment_volume_dataset/Dataset/Testing/TestSet/Test_Case_{TEST_CASE}.csv")
 
 testingXMatrix = []
 testingYMatrix = []
@@ -72,7 +79,7 @@ plt.figure("ANN Convergence")
 plt.subplot(2, 1, 1)
 plt.plot([i for i in range(epochs)], history.history["loss"], color="red", label="Training Loss")
 plt.plot([i for i in range(epochs)], history.history["val_loss"], color="green", label="Validation Loss")
-plt.title("ANN: Training and validation loss")
+plt.title(f"ANN: Training (Variant:{VARIANT}) and validation ({f'case: {TEST_CASE}' if not USE_ENTIRE_TEST else f'entire test set'}) loss")
 plt.xlabel("Epochs")
 plt.ylabel("Loss")
 plt.legend()
@@ -81,7 +88,7 @@ plt.legend()
 plt.subplot(2, 1, 2)
 plt.plot([i for i in range(epochs)], history.history["mean_absolute_error"], color="red", label="Training MAE")
 plt.plot([i for i in range(epochs)], history.history["val_mean_absolute_error"], color="green", label="Validation MAE")
-plt.title("ANN: Training and validation MAE")
+plt.title(f"ANN: Training (Variant:{VARIANT}) and validation ({f'case: {TEST_CASE}' if not USE_ENTIRE_TEST else f'entire test set'}) MAE")
 plt.xlabel("Epochs")
 plt.ylabel("Error")
 plt.legend()
@@ -123,7 +130,7 @@ for i in range(epochs):
 plt.figure("LR Convergence")
 plt.plot([i for i in range(epochs)], sgdTrainingLoss, color="red", label="Training Loss")
 plt.plot([i for i in range(epochs)], sgdTestingLoss, color="green", label="Validation Loss")
-plt.title("SGD_LR: Training and validation loss")
+plt.title(f"SGD_LR: Training (Variant:{VARIANT}) and validation ({f'case: {TEST_CASE}' if not USE_ENTIRE_TEST else f'entire test set'}) loss")
 plt.xlabel("Epochs")
 plt.ylabel("Loss")
 plt.legend()
