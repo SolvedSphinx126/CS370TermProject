@@ -12,7 +12,7 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error
 # Specify variant and test case here
 VARIANT = 1               # 1-5
 USE_ENTIRE_TEST = True   # Use entire test set (10k instances)
-TEST_CASE = 2             # 1-10 If USE_ENTIRE_TEST = False
+TEST_CASE = 7             # 1-10 If USE_ENTIRE_TEST = False
 
 # Build training set from data
 trainingDataFile = open(f"facebook_comment_volume_dataset/Dataset/Training/Features_Variant_{VARIANT}.csv")
@@ -57,11 +57,12 @@ print("Size of input layer:" + str(len(xTrainScaled[0])))
 ANNModel = keras.Sequential(
     [
         keras.layers.Input(shape=(len(xTrainScaled[0]),), name="inputLayer"),
-        keras.layers.Dense(128, activation="sigmoid", name="hiddenLayer1", kernel_regularizer=keras.regularizers.L1(), activity_regularizer=keras.regularizers.L2()),
-        keras.layers.Dense(64, activation="sigmoid", name="hiddenLayer2", kernel_regularizer=keras.regularizers.L1(), activity_regularizer=keras.regularizers.L2()),
-        keras.layers.Dropout(0.2),
-        keras.layers.Dense(64, activation="sigmoid", name="hiddenLayer3", kernel_regularizer=keras.regularizers.L1(), activity_regularizer=keras.regularizers.L2()),
-        keras.layers.Dense(1, activation="linear", name="outputLayer", kernel_regularizer=keras.regularizers.L1(), activity_regularizer=keras.regularizers.L2())
+        # keras.layers.Dense(128, activation="sigmoid", name="hiddenLayer1", kernel_regularizer=keras.regularizers.L1(), activity_regularizer=keras.regularizers.L2()),
+        keras.layers.Dense(64, activation="sigmoid", name="hiddenLayer1", kernel_regularizer=keras.regularizers.L1(0.05), activity_regularizer=keras.regularizers.L2(0.01)),
+        # keras.layers.Dense(64, activation="sigmoid", name="hiddenLayer2", kernel_regularizer=keras.regularizers.L1(), activity_regularizer=keras.regularizers.L2()),
+        keras.layers.Dropout(0.5),
+        keras.layers.Dense(64, activation="sigmoid", name="hiddenLayer3", kernel_regularizer=keras.regularizers.L1(0.05), activity_regularizer=keras.regularizers.L2(0.01)),
+        keras.layers.Dense(1, activation="relu", name="outputLayer", kernel_regularizer=keras.regularizers.L1(0.05), activity_regularizer=keras.regularizers.L2(0.01))
     ]
 )
 ANNModel.summary()

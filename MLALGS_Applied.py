@@ -143,11 +143,11 @@ ANNModel = keras.Sequential(
     [
         keras.layers.Input(shape=(len(trainingXList[0][0]),), name="inputLayer"),
         # keras.layers.Dense(128, activation="sigmoid", name="hiddenLayer1", kernel_regularizer=keras.regularizers.L1(), activity_regularizer=keras.regularizers.L2()),
-        keras.layers.Dense(64, activation="sigmoid", name="hiddenLayer1", kernel_regularizer=keras.regularizers.L1(), activity_regularizer=keras.regularizers.L2()),
+        keras.layers.Dense(64, activation="sigmoid", name="hiddenLayer1", kernel_regularizer=keras.regularizers.L1(0.05), activity_regularizer=keras.regularizers.L2(0.01)),
         # keras.layers.Dense(64, activation="sigmoid", name="hiddenLayer2", kernel_regularizer=keras.regularizers.L1(), activity_regularizer=keras.regularizers.L2()),
-        # keras.layers.Dropout(0.2),
-        keras.layers.Dense(64, activation="sigmoid", name="hiddenLayer3", kernel_regularizer=keras.regularizers.L1(), activity_regularizer=keras.regularizers.L2()),
-        keras.layers.Dense(1, activation="relu", name="outputLayer", kernel_regularizer=keras.regularizers.L1(), activity_regularizer=keras.regularizers.L2())
+        keras.layers.Dropout(0.5),
+        keras.layers.Dense(64, activation="sigmoid", name="hiddenLayer3", kernel_regularizer=keras.regularizers.L1(0.05), activity_regularizer=keras.regularizers.L2(0.01)),
+        keras.layers.Dense(1, activation="relu", name="outputLayer", kernel_regularizer=keras.regularizers.L1(0.05), activity_regularizer=keras.regularizers.L2(0.01))
     ]
 )
 ANNModel.summary()
