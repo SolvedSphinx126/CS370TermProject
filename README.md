@@ -2,6 +2,10 @@
 
 ## Usage
 
+### Requirements
+This program relies on the requirements specified in **requirements.txt**.\
+Use the command `pip install -r requirements.txt` to install the requrements.
+
 ### MLALGS.py
 This file is used to generate the convergence graphs for the Artificial Neural Network and the Stochastic Gradient Descent Linear Regression models.\
 It has three variables at the top of the file to specify which variation of training data to use, and which test case to use.\
